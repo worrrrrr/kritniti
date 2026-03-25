@@ -1,2 +1,48 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+:root {
+  /* แก่นของสี: ม่วงลึก (Deep Mystery) */
+  --bg-dark: #0a0514;
+  --card-purple: rgba(22, 13, 43, 0.6);
+  --accent-violet: #8b5cf6;
+  --text-primary: #f1f5f9;
+  --text-muted: #94a3b8;
+}
+
+@layer base {
+  body {
+    background: radial-gradient(circle at 50% -20%, #1e113a 0%, var(--bg-dark) 80%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    @apply antialiased selection:bg-violet-500/30;
+  }
+}
+
+@layer components {
+  /* การ์ดที่ดูนุ่มเหมือนกระจกฝ้า */
+  .card-mystery {
+    background: var(--card-purple);
+    @apply backdrop-blur-2xl border border-white/5 rounded-[2.5rem] shadow-2xl;
+    @apply transition-all duration-700 ease-out;
+  }
+
+  /* ปุ่มที่ดูแพงและนุ่มนวล */
+  .btn-soft {
+    @apply bg-violet-600/10 text-violet-400 border border-violet-500/20 px-10 py-4 rounded-full;
+    @apply hover:bg-violet-600/20 hover:shadow-[0_0_30px_rgba(139,92,246,0.2)] active:scale-95;
+    @apply transition-all duration-500 font-bold tracking-[0.2em] text-[10px] uppercase;
+  }
+
+  /* Navbar ที่กลืนไปกับพื้นหลัง */
+  .nav-blur {
+    @apply fixed top-0 w-full z-50 bg-[#0a0514]/40 backdrop-blur-xl border-b border-white/5;
+  }
+}
+
+/* ปรับแต่ง Markdown (Typography) ให้อ่านง่ายขึ้น */
+.prose {
+  @apply prose-invert prose-violet prose-lg max-w-none;
+  --tw-prose-body: theme('colors.slate.400');
+  --tw-prose-headings: theme('colors.white');
+}
