@@ -14,6 +14,7 @@ class UserStatus {
             Se: p.S + p.E + p.P, Si: p.S + p.I + p.J
         };
     });
+    
 
     // สรุป Enneagram
     currentEnneagram = $derived.by(() => {

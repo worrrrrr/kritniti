@@ -1,28 +1,37 @@
-// src/lib/logic/engine.js
+export function updateScores(currentScores, cfWeight, logic) {
+    const newScores = { ...currentScores };
 
-export function calculateMirror(currentOption, history, currentStep) {
+    // 1. อัปเดต Cognitive Function (Te, Ni, etc.)
+    if (cfWeight) {
+        Object.entries(cfWeight).forEach(([key, value]) => {
+            if (key in newScores) newScores[key] += value;
+        });
+    }
+
+    // 2. อัปเดต Drive (Dosa, Raga, etc.)
+    if (logic && logic.drive) {
+        if (logic.drive in newScores) newScores[logic.drive] += 10;
+    }
+
+    return newScores;
+}
+
+export function calculateMirror(option, history, currentStep) {
     let extraReflection = "";
-    
-    // 1. ตรวจสอบ "ความย้อนแย้ง" (Inconsistency Detection)
-    if (currentStep > 3) {
-        const pastDosa = history.filter(h => h.logic.drive === 'Dosa').length;
-        
-        // ถ้าเคยรุก (Dosa) มาตลอด แต่จู่ๆ มาแกล้งตาย (Moha/D)
-        if (pastDosa >= 2 && currentOption.logic.drive === 'Moha') {
-            extraReflection = "น่าสนใจ... นักรบผู้เกรี้ยวกราดในฉากก่อนๆ หายไปไหน? หรือนี่คือการแกล้งตายเพื่อหนีความอับอายกันแน่?";
+
+    // ดักพิรุธ: เคยบู๊ (Dosa) แล้วอยู่ๆ มาเงียบ (Moha) ในด่านท้ายๆ
+    if (currentStep > 5) {
+        const wasAggressive = history.filter(h => h.logic?.drive === 'Dosa').length >= 3;
+        if (wasAggressive && option.logic?.drive === 'Moha') {
+            extraReflection = "กลิ่นอายนักรบหายไปไหน? หรือความจริงตรงหน้ามันหนักจนคุณต้องแกล้งตายเพื่อเอาตัวรอด?";
         }
     }
 
-    // 2. ตรวจสอบ "อาการย้ำคิดย้ำทำ" (Pattern Fixation)
-    const sameAnswerCount = history.filter(h => h.id === currentOption.id).length;
-    if (sameAnswerCount >= 3) {
-        extraReflection = `คุณใช้หน้ากาก ${currentOption.id} มา ${sameAnswerCount + 1} ครั้งแล้วนะ... คุณติดคุกที่ตัวเองสร้างไว้จนขยับตัวไม่ได้แล้วหรือเปล่า?`;
-    }
-
     return {
-        title: currentOption.mirror.title,
-        mainContent: currentOption.mirror.content,
+        title: option.mirror.title,
+        content: option.mirror.content,
         subContent: extraReflection,
-        delay: 3000 + (currentStep * 200) // ยิ่งด่านลึก ยิ่งดีเลย์นานขึ้นเพื่อสร้าง Pressure
+        // ยิ่งด่านลึก ยิ่ง Delay นาน (สร้างพื้นที่ว่าง)
+        delay: 2000 + (currentStep * 400) 
     };
 }

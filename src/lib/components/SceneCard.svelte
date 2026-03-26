@@ -21,7 +21,7 @@
     }
 </script>
 
-<div class="bg-slate-900 border border-slate-700 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto">
+<div class="border border-slate-700 p-8 rounded-3xl shadow-2xl max-w-lg mx-auto">
     <div class="mb-6">
         <span class="text-blue-500 font-mono text-xs tracking-widest uppercase">Scenario {scene.id}</span>
         <h2 class="text-2xl font-bold text-white mt-2">{scene.question}</h2>
