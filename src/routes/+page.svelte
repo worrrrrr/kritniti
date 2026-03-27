@@ -2,6 +2,7 @@
     import { userStat } from '$lib/user-stat.svelte.ts';
     import { fade, fly } from 'svelte/transition';
     import { onMount } from 'svelte';
+	import SvelteMBTI from '$lib/components/SvelteMBTI.svelte';
 
     let mounted = $state(false);
     onMount(() => { mounted = true; });
@@ -35,7 +36,6 @@
 
           
         </div>
-
         <div class="fixed bottom-6 left-6 text-[10px] text-gray-600 tracking-widest uppercase">
             v.2026 / experimental_logic
         </div>

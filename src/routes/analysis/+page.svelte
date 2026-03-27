@@ -3,13 +3,14 @@
 	import ResultView from '$lib/components/ResultView.svelte';
 	import UserStatusCard from '$lib/components/UserStatusCard.svelte';
 	import data from '$lib/data/scenes.json';
-
+	import SvelteMBTI from '$lib/components/SvelteMBTI.svelte';
+	import IdentitySurgery from '$lib/components/IdentitySurgery.svelte';
 	let currentStep = $state(0);
 	let isFinished = $derived(currentStep >= data.length);
 </script>
 
 <div class="min-h-screen pt-32 px-6 pb-20">
-	<div class="max-w-2xl mx-auto">
+	<!-- <div class="max-w-2xl mx-auto">
 		{#if !isFinished}
 			<SceneCard 
 				scene={data[currentStep]} 
@@ -19,10 +20,10 @@
 			<ResultView />
 		{/if}
 	</div>
-<!-- 
 	{#if !isFinished}
 		<div class="hidden lg:block">
 			<UserStatusCard />
 		</div>
-	{/if} -->
+	{/if}  -->
+	<SvelteMBTI/>
 </div>
